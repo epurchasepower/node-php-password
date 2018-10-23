@@ -146,7 +146,12 @@ function needsRehash(hash, algorithm, options){
  * @throws {Exception} Will throw an exception if unable to parse hash
  */
 function verify(password, hash){
-    var info = getInfo(hash);
+    var info;
+    try {
+        info = getInfo(hash);
+    } catch(err) {
+        return false;
+    }
     return algorithms[info.algoName].verify(password, hash);
 }
 
